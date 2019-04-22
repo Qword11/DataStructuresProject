@@ -1,3 +1,4 @@
+package Hospital;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -6,6 +7,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Button;
 import java.awt.TextField;
+import java.util.concurrent.TimeUnit;
 
 public class Display {
 
@@ -15,27 +17,32 @@ public class Display {
 
 	/**
 	 * Create the application.
+	 * @throws InterruptedException 
 	 */
-	public Display() {
+	public Display() throws InterruptedException {
 		initialize();
+		
+		
 	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws InterruptedException 
 	 */
-	private void initialize() {
+	private void initialize() throws InterruptedException {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNowServing = new JLabel("Now Serving:");
-		lblNowServing.setBounds(360, 91, 110, 14);
+		lblNowServing.setBounds(357, 91, 70, 14);
 		frame.getContentPane().add(lblNowServing);
 		
-		JLabel label = new JLabel("#");
+		JLabel label = new JLabel(HospitalData.servingString);
 		label.setFont(new Font("Tahoma", Font.PLAIN, 72));
-		label.setBounds(360, 116, 89, 87);
+		label.setBounds(347, 116, 89, 87);
 		frame.getContentPane().add(label);
 		
 		JLabel lblNamePlaceholder = new JLabel("Name PlaceHolder");
@@ -43,7 +50,7 @@ public class Display {
 		lblNamePlaceholder.setBounds(219, 126, 131, 36);
 		frame.getContentPane().add(lblNamePlaceholder);
 		
-		JLabel lblAgePlaceholder = new JLabel("Age PlaceHolder");
+		JLabel lblAgePlaceholder = new JLabel(HospitalData.servingString);
 		lblAgePlaceholder.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblAgePlaceholder.setBounds(219, 164, 131, 36);
 		frame.getContentPane().add(lblAgePlaceholder);
@@ -54,21 +61,26 @@ public class Display {
 		
 		TextField NameFill = new TextField();
 		NameFill.setText("Enter name here");
-		NameFill.setBounds(312, 251, 145, 22);
+		NameFill.setBounds(319, 251, 145, 22);
 		frame.getContentPane().add(NameFill);
 		
 		TextField AgeFill = new TextField();
 		AgeFill.setText("Enter age here");
-		AgeFill.setBounds(312, 285, 145, 22);
+		AgeFill.setBounds(319, 285, 145, 22);
 		frame.getContentPane().add(AgeFill);
 		
 		TextField VisitFill = new TextField();
 		VisitFill.setText("Reason for Visit");
-		VisitFill.setBounds(312, 322, 145, 22);
+		VisitFill.setBounds(319, 322, 145, 22);
 		frame.getContentPane().add(VisitFill);
 		
 		Button button_1 = new Button("Sign-In");
-		button_1.setBounds(346, 350, 70, 22);
+		button_1.setBounds(357, 350, 70, 22);
 		frame.getContentPane().add(button_1);
+		
 	}
+
+
+	
+	
 }
