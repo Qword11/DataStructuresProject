@@ -1,13 +1,28 @@
 package Hospital;
+
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.TextField;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class HospitalData {
 	ClientInfo ClientHead = new ClientInfo();
 	Stack<Character> ClientStack = new Stack<Character>(); 
 	Queue ClientQueue = new LinkedList();
-
+	public int servingCount = 0;
+	static String servingString=null;
+	static Timer timer = new Timer();
+	public String ClientName;
+	
 public void addUserNode(String clientName, int seatNumber, int age){
 		ClientInfo currNode = new ClientInfo(clientName,seatNumber,age);
 		if(ClientHead == null) {
@@ -21,7 +36,53 @@ public void addUserNode(String clientName, int seatNumber, int age){
 			last.next = currNode;
 		}	
 	}
+public void displayName(String clientName, int seatNumber, int age){
+	String currName = null;
+	ClientInfo currNode = ClientHead.next;
+	while(currNode != null) {
+		System.out.println("This clients name is "+currNode.clientName);
+		currName = currNode.clientName;
+		ClientName = currName;
+		currNode = currNode.next;
+		
+	}	
+}
+
+public void displayAge(String clientName, int seatNumber, int age){
+	int currAge = 0;
+	ClientInfo currNode = ClientHead.next;
+	while(currNode != null) {
+		System.out.println(currNode.clientName+" is "+currNode.age);
+		currAge = currNode.age;
+		currNode = currNode.next;
+	}	
+}
 	
+public void IncrementNowServing () throws InterruptedException {
+	ClientInfo currNode = ClientHead;
+	while(currNode != null) {
+	servingString = Integer.toString(servingCount);
+	TimeUnit.SECONDS.sleep(10);
+	
+    System.out.println("Patient "+currNode.clientName+" has been helped!");
+    
+    servingCount++;
+    currNode = currNode.next; 
+	}
+}
+
+//public void IncrementSeatNumber () throws InterruptedException {
+//	ClientInfo currNode = ClientHead;
+//	while(currNode != null) {
+//	
+//	TimeUnit.SECONDS.sleep(30);
+//	
+ //   System.out.println("Patient "+currNode.clientName+" has been helped!");
+//    servingCount++;
+//    currNode = currNode.next; 
+//	}
+//}
+
 public void addUserQueue (String clientName, int seatNumber, int age) {
 	
 	}
@@ -35,5 +96,4 @@ public void addAll (String clientName, int seatNumber, int age) {
 	addUserQueue(clientName, seatNumber, age);
 	addUserNode(clientName, seatNumber, age);
 	}
-
 }
