@@ -1,0 +1,221 @@
+
+
+public class QueueNode {
+    QueueNode next;
+	String clientName;
+	int seatNumber;
+	int age;
+	int count =0;
+	
+	public QueueNode(){
+		next = null;
+	}
+	
+	QueueNode Head = null;
+    public QueueNode(String clientName,int seatNumber,int age){
+		this.clientName = clientName;
+		this.seatNumber = seatNumber;
+		this.age = age;
+		this.next = null;
+    }
+    
+	public int count(String clientName) throws Exception{
+		if(Head == null){
+			count += 1;
+		}
+		QueueNode curr = Head;
+		while(curr != null){
+			if(curr.clientName != null && curr.clientName.equals(clientName)){
+				count ++;
+			}
+			curr=curr.next;
+		}
+		  return count;
+	}
+     
+     //One you actually need
+    public void displayNode(){
+		QueueNode curr = Head;
+		System.out.println(this.clientName+" "+ this.seatNumber+" " +this.age);
+		while(curr != null){
+			System.out.println(curr.clientName+" "+ curr.seatNumber+" " +curr.age);
+			curr = curr.next;
+		}
+		System.out.println(" ");
+    }
+    
+    @Override
+    public String toString(){
+    	return this.clientName+" "+ this.seatNumber+" " +this.age;
+    }
+}
+--------------------------------------------------------------------------------------------------------------
+
+public class QueueLinkList {
+    
+	public QueueNode first;
+    public QueueNode last;
+    
+    public QueueLinkList()
+    {
+        first=null;
+        last=null;
+    }
+    public void enqueue(String clientName, int seatNumber, int age)
+    {
+        QueueNode patient= new QueueNode(clientName,seatNumber,age);
+        patient.next=null;
+        if(isEmpty())
+            first=patient;
+        else
+            last.next=patient;
+        last=patient;
+    }
+    public void delete()
+    {
+        QueueNode nurse= first;
+        if(first.next==null)
+            last=null;
+        first=first.next;
+        
+        System.out.println(nurse);
+    }
+    public void peek()
+    {
+        System.out.println(last);
+    }
+    public boolean isEmpty()
+    {
+        return(first==null);
+    }
+    
+    //Relating to displaylist 
+    public void displayList() throws Exception
+    {
+        QueueNode current=first;
+        while(current!=null)
+        {
+            current.displayNode();
+            current=current.next;
+        }
+    }
+}
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+public class Queue {
+	    public QueueLinkList listo;
+	    public Queue()
+	    {
+	        listo=new QueueLinkList();
+	    }
+	    public void enqueue(String clientName, int seatNumber, int age)
+	    {
+	        listo.enqueue(clientName,seatNumber,age);
+	        System.out.println("Inserted");
+	    }
+	    public void delete()
+	    {
+	        listo.delete();
+	    }
+	    public boolean isQueueEmpty()
+	    {
+	        return listo.isEmpty();
+	    }
+	    public void display() throws Exception
+	    {
+	        listo.displayList();
+	    }
+	    public void peek()
+	    {
+	        listo.peek();
+	    }
+	}
+
+-----------------------------------------------------------------------------------------------------------------------------
+import java.util.Scanner;
+
+public class QueueList {
+	public static void main(String args[])throws Exception
+    {
+        Queue q =new Queue();        
+        QueueNode n= new QueueNode();
+        int ch;
+
+        while((boolean)true)
+        {
+            @SuppressWarnings("resource")
+			Scanner sc = new Scanner(System.in);
+            System.out.println("Patient Menu");
+            System.out.println("--------");
+            System.out.println("1.Insert");
+            System.out.println("2.Delete");
+            System.out.println("3.Peek");
+            System.out.println("4.Display");
+            System.out.println("5.Exit");
+            System.out.println("Enter Your Choice: ");
+            ch=sc.nextInt();
+            sc.nextLine();
+            if(ch==5)
+                break;
+            else
+            {
+                switch(ch)
+                {
+                case 1:
+                    System.out.println("Enter Number of Elements");
+                    ch=sc.nextInt();
+                    sc.nextLine();
+
+                    
+                     for(int i=0; i<ch; i++)
+                    {
+                       
+                       
+                       System.out.println("\nEnter elements name: ");
+                       String d = sc.nextLine();
+                       System.out.println("\nEnter elements age: ");
+                       int c = sc.nextInt();
+                       sc.nextLine();
+                       
+ 
+                        q.enqueue(d,n.count(d),c);
+                       
+                    }
+ 
+                    break;
+                case 2:
+                    if(q.isQueueEmpty())
+                        System.out.println("Queue is Empty ");
+                    else
+                    {
+                        q.delete();
+                        System.out.println("Deleted data:-");
+                    }
+                    break;
+                case 3:
+                    if(q.isQueueEmpty())
+                        System.out.print("Queue is Empty ");
+                    else
+                    {
+                    	System.out.println("First item:-  ");
+                        q.peek();
+                    }
+                    break;
+                case 4:
+                    if(q.isQueueEmpty())
+                        System.out.println("Queue is Empty ");
+                    else
+                    {
+                        System.out.println("Datas in Queue ");
+                      q.display();
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid choice ");
+                }
+            }
+            System.out.println(" ");
+        }
+    }
+}
