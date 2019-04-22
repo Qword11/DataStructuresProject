@@ -1,4 +1,6 @@
 package Hospital;
+import Hospital.Display;
+
 
 import java.awt.Button;
 import java.awt.Font;
@@ -14,16 +16,19 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class HospitalData {
-	ClientInfo ClientHead = new ClientInfo();
-	Stack<Character> ClientStack = new Stack<Character>(); 
-	Queue ClientQueue = new LinkedList();
-	public int servingCount = 0;
-	static String servingString=null;
-	static Timer timer = new Timer();
-	public String ClientName;
+public class HospitalData{
 	
-public void addUserNode(String clientName, int seatNumber, int age){
+	
+	ClientInfo ClientHead = new ClientInfo();
+	
+	
+	public String servingString = null;
+	public int servingCount = 0;
+	
+	public String displayAge =null;
+	public String ClientName =null;
+	
+public void addUserNode(String clientName, int seatNumber, int age) throws InterruptedException{
 		ClientInfo currNode = new ClientInfo(clientName,seatNumber,age);
 		if(ClientHead == null) {
 			ClientHead = currNode;
@@ -36,52 +41,38 @@ public void addUserNode(String clientName, int seatNumber, int age){
 			last.next = currNode;
 		}	
 	}
-public void displayName(String clientName, int seatNumber, int age){
-	String currName = null;
-	ClientInfo currNode = ClientHead.next;
-	while(currNode != null) {
-		System.out.println("This clients name is "+currNode.clientName);
-		currName = currNode.clientName;
-		ClientName = currName;
-		currNode = currNode.next;
-		
-	}	
-}
 
-public void displayAge(String clientName, int seatNumber, int age){
-	int currAge = 0;
-	ClientInfo currNode = ClientHead.next;
-	while(currNode != null) {
-		System.out.println(currNode.clientName+" is "+currNode.age);
-		currAge = currNode.age;
-		currNode = currNode.next;
-	}	
-}
+
 	
 public void IncrementNowServing () throws InterruptedException {
-	ClientInfo currNode = ClientHead;
+	ClientInfo currNode = ClientHead.next;
 	while(currNode != null) {
-	servingString = Integer.toString(servingCount);
-	TimeUnit.SECONDS.sleep(10);
+	displayAge = Integer.toString(currNode.age);
+	    
+	ClientName = currNode.clientName;
+
+	Display.setNameLabel(ClientName);
+	Display.setAgeLabel(displayAge);
+	System.out.println("Current Client is "+currNode.clientName+" and age is "+currNode.age);
 	
+	//lblAgePlaceholder.setText(displayAge);
+	//servingLabel.setText(Integer.toString(servingCount));
+	TimeUnit.SECONDS.sleep(10);
+
     System.out.println("Patient "+currNode.clientName+" has been helped!");
+    TimeUnit.SECONDS.sleep(5);
+   
+    servingCount = servingCount + 1;
+     
+    currNode = currNode.next;
+    TimeUnit.SECONDS.sleep(5);
     
-    servingCount++;
-    currNode = currNode.next; 
+	}
+	if(currNode == null) {
+		currNode = currNode.next; 
 	}
 }
 
-//public void IncrementSeatNumber () throws InterruptedException {
-//	ClientInfo currNode = ClientHead;
-//	while(currNode != null) {
-//	
-//	TimeUnit.SECONDS.sleep(30);
-//	
- //   System.out.println("Patient "+currNode.clientName+" has been helped!");
-//    servingCount++;
-//    currNode = currNode.next; 
-//	}
-//}
 
 public void addUserQueue (String clientName, int seatNumber, int age) {
 	
@@ -91,9 +82,14 @@ public void addUserStack (String clientName, int seatNumber, int age) {
 	
 	}
 
-public void addAll (String clientName, int seatNumber, int age) {
+public void addAll (String clientName, int seatNumber, int age) throws InterruptedException {
 	addUserStack (clientName ,seatNumber, age);
 	addUserQueue(clientName, seatNumber, age);
 	addUserNode(clientName, seatNumber, age);
 	}
+
+public HospitalData() throws InterruptedException {
+	super();
+}
+
 }
