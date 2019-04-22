@@ -2,14 +2,20 @@ package Hospital;
 import java.awt.EventQueue;
 import java.awt.*;
 
-public class main {
+public class main{
 
 	/**
 	 * Launch the application.
 	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException  {
 		HospitalData hospital = new HospitalData();
+		
+		hospital.addUserNode("John Doe",1,18);
+		
+		hospital.addUserNode("Jane Doe",2,24);
+		
+		hospital.addUserNode("Jackie Chan",3,65);
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -22,13 +28,7 @@ public class main {
 			}
 		});
 		
-		hospital.addUserNode("John Doe",1,18);
-		hospital.IncrementNowServing();
 		
-		
-		hospital.addUserNode("Jane Doe",2,24);
-		hospital.IncrementNowServing();
-		hospital.addUserNode("Jackie Chan",3,65);
 		
 		hospital.IncrementNowServing();
 	}
