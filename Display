@@ -8,11 +8,26 @@ import java.awt.Font;
 import java.awt.Button;
 import java.awt.TextField;
 import java.util.concurrent.TimeUnit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Display {
-
+public class Display extends HospitalData{
+	static String NameLabel;
+	static String AgeLabel;
 	JFrame frame;
-
+	int x=1;
+	int pressed = 0;
+	
+	public static  void setNameLabel(String text) throws InterruptedException {
+		NameLabel  = text;
+		System.out.println("Name Label is "+NameLabel);	
+	}
+	
+	public static  void setAgeLabel(String text) throws InterruptedException {
+		AgeLabel  = text;
+		System.out.println("Age Label is "+AgeLabel);	
+	}
+	 
 	
 
 	/**
@@ -25,34 +40,35 @@ public class Display {
 		
 	}
 	
+	
 
 	/**
 	 * Initialize the contents of the frame.
 	 * @throws InterruptedException 
 	 */
-	private void initialize() throws InterruptedException {
+	public void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNowServing = new JLabel("Now Serving:");
-		lblNowServing.setBounds(357, 91, 70, 14);
+		lblNowServing.setBounds(357, 91, 89, 14);
 		frame.getContentPane().add(lblNowServing);
 		
-		JLabel label = new JLabel(HospitalData.servingString);
-		label.setFont(new Font("Tahoma", Font.PLAIN, 72));
-		label.setBounds(347, 116, 89, 87);
-		frame.getContentPane().add(label);
-		
-		JLabel lblNamePlaceholder = new JLabel("Name PlaceHolder");
-		lblNamePlaceholder.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNamePlaceholder.setBounds(219, 126, 131, 36);
+		JLabel servingLabel = new JLabel("Serving Holder");
+		servingLabel.setFont(new Font("Tahoma", Font.PLAIN, 72));
+		servingLabel.setBounds(347, 116, 89, 87);
+		frame.getContentPane().add(servingLabel);
+			
+		JLabel lblNamePlaceholder = new JLabel("Name Holder");
+		lblNamePlaceholder.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNamePlaceholder.setBounds(122, 91, 215, 71);
 		frame.getContentPane().add(lblNamePlaceholder);
 		
-		JLabel lblAgePlaceholder = new JLabel(HospitalData.servingString);
-		lblAgePlaceholder.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAgePlaceholder.setBounds(219, 164, 131, 36);
+		JLabel lblAgePlaceholder = new JLabel("Age Holder");
+		lblAgePlaceholder.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblAgePlaceholder.setBounds(122, 158, 173, 45);
 		frame.getContentPane().add(lblAgePlaceholder);
 		
 		Button button = new Button("Directory");
@@ -78,9 +94,17 @@ public class Display {
 		button_1.setBounds(357, 350, 70, 22);
 		frame.getContentPane().add(button_1);
 		
+		Button button_2 = new Button("UpdateButton");
+		button_2.setBounds(146, 322, 70, 22);
+		frame.getContentPane().add(button_2);
+		button_2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	for(int i = 0;i<1;i--)
+            	ClientName  = NameLabel;
+            	lblNamePlaceholder.setText(NameLabel);
+            	lblAgePlaceholder.setText(AgeLabel);
+            }
+        });
 	}
-
-
-	
-	
 }
+
